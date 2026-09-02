@@ -104,7 +104,14 @@ jobs:
               echo "custom_version is required when release_type=custom" >&2
               exit 1
             fi
-            VERSION=$(python scripts/release.py --set-version "${{ inputs.custom_version }}" --docker-image "${RELEASE_IMAGE}")
+            CURRENT_VERSION=$(python -c 'import tomllib; print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])')
+            if [[ "${{ inputs.custom_version }}" == "${CURRENT_VERSION}" ]]; then
+              # Allow the scaffold's current version to be published once. The
+              # following tag-existence check prevents republishing it.
+              VERSION="${CURRENT_VERSION}"
+            else
+              VERSION=$(python scripts/release.py --set-version "${{ inputs.custom_version }}" --docker-image "${RELEASE_IMAGE}")
+            fi
           else
             VERSION=$(python scripts/release.py --bump "${{ inputs.release_type }}" --preid "${{ inputs.preid }}" --docker-image "${RELEASE_IMAGE}")
           fi
