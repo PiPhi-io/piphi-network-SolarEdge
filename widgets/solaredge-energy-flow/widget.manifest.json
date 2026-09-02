@@ -1,0 +1,28 @@
+{
+  "id": "io.piphi.solaredge.energy-flow",
+  "name": "SolarEdge energy flow",
+  "version": "0.1.0",
+  "entry": "./dist/widget.js",
+  "binding_modes": ["read"],
+  "value_kinds": ["numeric"],
+  "capability_requirements": ["production_power_w", "consumption_power_w", "grid_power_w"],
+  "sdk_compatibility": {"minimum": "0.3.0"},
+  "conformance": {
+    "accessibility": "wcag2.2-aa", "keyboard": true, "themes": ["light", "dark"],
+    "directions": ["ltr", "rtl"],
+    "states": ["loading", "live", "stale", "offline", "reconnecting", "denied", "error"]
+  },
+  "settings_schema_version": "1",
+  "settings": [
+    {"id": "title", "type": "text", "label": "Title", "default": "Live energy flow"},
+    {"id": "site", "type": "device", "label": "SolarEdge site", "required": true}
+  ],
+  "layout": {"min_height": 220, "default_height": 300, "max_height": 520},
+  "previews": {"light": "./previews/light.svg", "dark": "./previews/dark.svg"},
+  "translations": {
+    "en": {"widget.title": "Live energy flow", "widget.waiting": "Waiting for SolarEdge data"},
+    "es": {"widget.title": "Flujo de energía", "widget.waiting": "Esperando datos de SolarEdge"},
+    "ar": {"widget.title": "تدفق الطاقة المباشر", "widget.waiting": "في انتظار بيانات SolarEdge"}
+  },
+  "security": {"permissions": [], "sandbox": ["allow-scripts"], "csp": {"connect_src": []}}
+}
