@@ -69,7 +69,10 @@ def build(output_dir: Path, *, check: bool, env_name: str, key_id: str) -> tuple
     version = source["identity"]["version"]
     release_ref = str(os.getenv("GITHUB_REF_NAME") or "").strip()
     expected_ref = f"experience-solar-energy-v{version}"
-    if release_ref and release_ref != expected_ref:
+    # Ordinary CI runs set GITHUB_REF_NAME to the branch name. Only production
+    # builds are tag-bound; --check intentionally uses an ephemeral key and
+    # validates packaging without pretending to publish an artifact.
+    if not check and release_ref and release_ref != expected_ref:
         raise SystemExit(
             f"release ref {release_ref!r} does not match package version; expected {expected_ref!r}"
         )
