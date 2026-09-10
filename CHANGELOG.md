@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 — Unreleased
+## 0.2.1 — Unreleased
 
 - Replace two embedded sandboxed widgets with one signed, integration-owned
   declarative experience containing Energy Flow and Production Summary.
@@ -14,5 +14,6 @@
   deterministic signing tests, release invariants, and accessibility checks.
 - Run the runtime image as a non-root user with a persistent SDK automation
   ledger and container health check.
-- Prepare immutable runtime and experience release workflows. No 0.2.0 artifact
-  has been published.
+- Prepare immutable runtime and experience release workflows. Runtime `v0.2.1`
+  supersedes the unused `v0.2.0` tag and targets the existing Docker Hub
+  repository authorized by the OIDC connection.

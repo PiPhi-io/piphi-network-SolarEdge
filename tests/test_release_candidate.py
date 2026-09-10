@@ -13,7 +13,7 @@ def test_release_versions_and_image_are_synchronized() -> None:
     manifest = json.loads((ROOT / "manifest.json").read_text())
     project = tomllib.loads((ROOT / "pyproject.toml").read_text())
     version = project["project"]["version"]
-    assert version == manifest["version"] == INTEGRATION_VERSION == "0.2.0"
+    assert version == manifest["version"] == INTEGRATION_VERSION == "0.2.1"
     assert manifest["image"].endswith(f":{version}")
     assert manifest["runtime"]["linux"]["container"]["image"] == manifest["image"]
     assert project["tool"]["hatch"]["build"]["targets"]["wheel"]["force-include"]["src/behaviors.json"] == "solar_edge/behaviors.json"
@@ -44,7 +44,7 @@ def test_release_workflows_publish_only_prepared_immutable_refs() -> None:
     assert "release_ref:" in runtime_workflow
     assert "ref: ${{ inputs.release_ref }}" in runtime_workflow
     assert "git commit" not in runtime_workflow and "git tag" not in runtime_workflow
-    assert "RELEASE_IMAGE: piphinetwork/piphi-network-solar-edge" in runtime_workflow
+    assert "RELEASE_IMAGE: piphinetwork/piphi-network-solaredge" in runtime_workflow
     assert "docker/login-action@v4" in runtime_workflow
     assert '"experience-solar-energy-v*.*.*"' in experience_workflow
     assert "PIPHI_WIDGET_SIGNING_KEY_PEM_BASE64" in experience_workflow

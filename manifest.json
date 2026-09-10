@@ -3,7 +3,7 @@
   "manifest_version": "1.0",
   "id": "piphi-network-solaredge",
   "name": "SolarEdge",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Read-only SolarEdge site power-flow and production monitoring through the legacy Monitoring API.",
   "marketplace": {
     "brand_domain": "solaredge.com",
@@ -119,13 +119,13 @@
     "website": "https://piphi.io"
   },
   "license": "Apache-2.0",
-  "image": "piphinetwork/piphi-network-solar-edge:0.2.0",
+  "image": "piphinetwork/piphi-network-solaredge:0.2.1",
   "platforms": ["linux"],
   "runtime": {
     "linux": {
       "type": "container",
       "container": {
-        "image": "piphinetwork/piphi-network-solar-edge:0.2.0",
+        "image": "piphinetwork/piphi-network-solaredge:0.2.1",
         "ports": [{"container": 8090, "host": 8090}],
         "environment": {
           "LOG_LEVEL": "info",

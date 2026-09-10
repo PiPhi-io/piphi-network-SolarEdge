@@ -48,5 +48,5 @@ short-lived Docker Hub access token.
 Current image target:
 
 ```text
-piphinetwork/piphi-network-solar-edge:0.2.0
+piphinetwork/piphi-network-solaredge:0.2.1
 ```

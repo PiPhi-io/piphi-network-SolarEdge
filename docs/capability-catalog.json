@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "integration_id": "piphi-network-solaredge",
-  "catalog_version": "0.2.0",
+  "catalog_version": "0.2.1",
   "capabilities": [
     {"id": "connected", "status": "implemented", "source": "runtime poll outcome", "history": "heartbeat on every poll"},
     {"id": "production_power_w", "status": "implemented", "source": "Monitoring API currentPowerFlow", "history": "sample on every successful poll"},

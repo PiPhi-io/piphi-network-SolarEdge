@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  RELEASE_IMAGE: piphinetwork/piphi-network-solar-edge
+  RELEASE_IMAGE: piphinetwork/piphi-network-solaredge
   DOCKERHUB_ORGANIZATION: ${{ vars.DOCKERHUB_ORGANIZATION || 'piphinetwork' }}
   DOCKERHUB_OIDC_CONNECTIONID: ${{ vars.DOCKERHUB_OIDC_CONNECTIONID }}
 

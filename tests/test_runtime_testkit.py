@@ -35,7 +35,7 @@ class TestKitSolarEdgeClient:
 async def test_runtime_sdk_delivers_widget_metrics_to_testkit_core(mock_core) -> None:
     starter = create_runtime_starter(
         integration_id="piphi-network-solaredge", integration_name="SolarEdge",
-        version="0.2.0", core_base_url=mock_core.base_url,
+        version="0.2.1", core_base_url=mock_core.base_url,
     )
     starter.runtime.auth.update(container_id="runtime-test", internal_token="test-token")
     service = SolarEdgeRuntimeService(

@@ -21,7 +21,7 @@ project_version = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"
 runtime_version = __import__("solar_edge.settings", fromlist=["INTEGRATION_VERSION"]).INTEGRATION_VERSION
 if manifest.get("version") != project_version or runtime_version != project_version:
     errors.append("pyproject, manifest, and runtime versions must match")
-expected_image = f"piphinetwork/piphi-network-solar-edge:{project_version}"
+expected_image = f"piphinetwork/piphi-network-solaredge:{project_version}"
 if manifest.get("image") != expected_image:
     errors.append(f"manifest image must be {expected_image}")
 if manifest.get("runtime", {}).get("linux", {}).get("container", {}).get("image") != expected_image:
