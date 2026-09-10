@@ -53,7 +53,7 @@ The upstream client also exposes site lists/details, energy and power histories,
 
 ## Widgets
 
-Two Widget SDK cards ship with the runtime: a live solar/home/grid/battery flow card and a production totals card. They consume only PiPhi capability state through the injected host bridge; SolarEdge credentials and direct cloud access are never exposed to widget code.
+Two Widget SDK cards ship as one signed, integration-owned declarative experience: a live solar/home/grid/battery flow card and a production totals card. Core renders both from source-scoped PiPhi capability bindings; SolarEdge credentials, executable widget code, and direct cloud access are never exposed to the package.
 
 ## Release blockers
 

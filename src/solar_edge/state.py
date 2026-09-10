@@ -53,9 +53,11 @@ solaredge_service = SolarEdgeRuntimeService(
     telemetry=telemetry,
 )
 
-BEHAVIORS = json.loads(
-    (Path(__file__).resolve().parents[1] / "behaviors.json").read_text()
+_behavior_candidates = (
+    Path(__file__).with_name("behaviors.json"),
+    Path(__file__).resolve().parents[1] / "behaviors.json",
 )
+BEHAVIORS = json.loads(next(path for path in _behavior_candidates if path.exists()).read_text())
 
 # Core projects telemetry from this runtime into this canonical event. Declaring
 # it here exposes the event schema to the automation SDK without emitting a

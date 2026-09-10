@@ -20,4 +20,6 @@ jobs:
       - run: pdm install -G dev
       - run: pdm run pytest
       - run: pdm run python scripts/validate.py
+      - run: pdm run python scripts/build_experience.py --check
+      - run: pdm build
       - run: docker build -t piphi-runtime-smoke .

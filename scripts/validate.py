@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import tomllib
 from pathlib import Path
 
 from solar_edge.contract import COMMANDS, ENDPOINTS, REQUIRED_ENDPOINTS
@@ -15,6 +16,16 @@ dockerfile = (ROOT / "Dockerfile").read_text() if (ROOT / "Dockerfile").exists()
 errors: list[str] = []
 risk_levels = {"low", "medium", "high", "critical"}
 automation_schema_versions = {"automation.behavior.v1", "automation.behavior.v2"}
+
+project_version = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]["version"]
+runtime_version = __import__("solar_edge.settings", fromlist=["INTEGRATION_VERSION"]).INTEGRATION_VERSION
+if manifest.get("version") != project_version or runtime_version != project_version:
+    errors.append("pyproject, manifest, and runtime versions must match")
+expected_image = f"piphinetwork/piphi-network-solar-edge:{project_version}"
+if manifest.get("image") != expected_image:
+    errors.append(f"manifest image must be {expected_image}")
+if manifest.get("runtime", {}).get("linux", {}).get("container", {}).get("image") != expected_image:
+    errors.append("runtime container image must match manifest image")
 
 if manifest.get("$schema") != "./schema/piphi-manifest.schema.json":
     errors.append("manifest must reference ./schema/piphi-manifest.schema.json")
@@ -39,6 +50,37 @@ elif dockerfile and f"EXPOSE {port}" not in dockerfile:
 for capability_id, capability in manifest.get("capabilities", {}).items():
     if capability.get("kind") == "action" and capability_id not in COMMANDS:
         errors.append(f"action capability {capability_id} must map to a command")
+
+ui = manifest.get("ui", {})
+if ui.get("widget_packages"):
+    errors.append("legacy embedded ui.widget_packages are not supported")
+experience_refs = ui.get("experience_packages") or []
+if experience_refs != [{
+    "registry_id": "io.piphi.solaredge-solar-energy",
+    "version_range": ">=0.1,<1",
+    "auto_install": True,
+}]:
+    errors.append("manifest must auto-install the SolarEdge experience package")
+
+experience_path = ROOT / "experiences" / "solar-energy" / "package.source.json"
+if not experience_path.exists():
+    errors.append("SolarEdge experience package source is missing")
+else:
+    experience = json.loads(experience_path.read_text())
+    if experience.get("owning_integration_id") != manifest.get("id"):
+        errors.append("experience owning integration does not match manifest id")
+    widget_ids = [widget.get("id") for widget in experience.get("widgets", [])]
+    if widget_ids != ["energy-flow", "production-summary"]:
+        errors.append("experience must package the energy-flow and production-summary widgets")
+    for widget in experience.get("widgets", []):
+        if widget.get("runtime") != "declarative":
+            errors.append(f"experience widget {widget.get('id')} must be declarative")
+        for slot in widget.get("binding_slots", []):
+            if slot.get("compatible_integration_ids") != [manifest.get("id")]:
+                errors.append(f"binding slot {slot.get('id')} must be scoped to SolarEdge")
+            for capability in slot.get("capability_requirements", []):
+                if capability not in manifest.get("capabilities", {}):
+                    errors.append(f"binding slot {slot.get('id')} references unknown capability {capability}")
 
 if behavior is None:
     errors.append("behaviors.json is missing")

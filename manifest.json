@@ -3,7 +3,7 @@
   "manifest_version": "1.0",
   "id": "piphi-network-solaredge",
   "name": "SolarEdge",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Read-only SolarEdge site power-flow and production monitoring through the legacy Monitoring API.",
   "marketplace": {
     "brand_domain": "solaredge.com",
@@ -119,25 +119,17 @@
     "website": "https://piphi.io"
   },
   "license": "Apache-2.0",
-  "image": "piphinetwork/piphi-network-solaredge:0.1.1",
-  "platforms": [
-    "linux"
-  ],
+  "image": "piphinetwork/piphi-network-solar-edge:0.2.0",
+  "platforms": ["linux"],
   "runtime": {
     "linux": {
       "type": "container",
       "container": {
-        "image": "piphinetwork/piphi-network-solaredge:0.1.1",
-        "ports": [
-          {
-            "container": 8090,
-            "host": 8090
-          }
-        ],
+        "image": "piphinetwork/piphi-network-solar-edge:0.2.0",
+        "ports": [{"container": 8090, "host": 8090}],
         "environment": {
           "LOG_LEVEL": "info",
-          "PIPHI_WIDGET_DIR": "/app/widgets",
-          "PIPHI_AUTOMATION_LEDGER_PATH": "/data/piphi/automation-actions.sqlite3"
+          "PIPHI_AUTOMATION_LEDGER_PATH": "/var/lib/piphi/automation-actions.sqlite3"
         },
         "restart_policy": {
           "name": "unless-stopped",
@@ -309,87 +301,11 @@
     }
   ],
   "ui": {
-    "widget_packages": [
+    "experience_packages": [
       {
-        "id": "io.piphi.solaredge.energy-flow",
-        "name": "SolarEdge energy flow",
-        "version": "0.1.0",
-        "entry": "/widgets/solaredge-energy-flow/dist/widget.js",
-        "runtime": "prebuilt_bundle",
-        "host_bridge": {
-          "protocol": "piphi.widget.host",
-          "version": "1",
-          "events": [
-            "ready",
-            "resize"
-          ]
-        },
-        "binding_modes": [
-          "read"
-        ],
-        "value_kinds": [
-          "numeric"
-        ],
-        "capability_requirements": [
-          "production_power_w",
-          "consumption_power_w",
-          "grid_power_w"
-        ],
-        "layout": {
-          "min_height": 220,
-          "default_height": 300,
-          "max_height": 520
-        },
-        "security": {
-          "permissions": [],
-          "sandbox": [
-            "allow-scripts"
-          ],
-          "csp": {
-            "connect_src": []
-          }
-        }
-      },
-      {
-        "id": "io.piphi.solaredge.production-summary",
-        "name": "SolarEdge production summary",
-        "version": "0.1.0",
-        "entry": "/widgets/solaredge-production-summary/dist/widget.js",
-        "runtime": "prebuilt_bundle",
-        "host_bridge": {
-          "protocol": "piphi.widget.host",
-          "version": "1",
-          "events": [
-            "ready",
-            "resize"
-          ]
-        },
-        "binding_modes": [
-          "read"
-        ],
-        "value_kinds": [
-          "numeric"
-        ],
-        "capability_requirements": [
-          "today_energy_kwh",
-          "month_energy_kwh",
-          "year_energy_kwh",
-          "lifetime_energy_kwh"
-        ],
-        "layout": {
-          "min_height": 180,
-          "default_height": 260,
-          "max_height": 460
-        },
-        "security": {
-          "permissions": [],
-          "sandbox": [
-            "allow-scripts"
-          ],
-          "csp": {
-            "connect_src": []
-          }
-        }
+        "registry_id": "io.piphi.solaredge-solar-energy",
+        "version_range": ">=0.1,<1",
+        "auto_install": true
       }
     ]
   }

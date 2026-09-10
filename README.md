@@ -2,7 +2,7 @@
 
 Read-only SolarEdge Monitoring integration built with `piphi-runtime-kit-python` and the `piphi-network-create` cloud-polling scaffold.
 
-It provides live solar production, home consumption, signed grid import/export, optional battery power/state of charge, production totals, Core telemetry, a manual refresh command, and two sandboxed dashboard widgets.
+It provides live solar production, home consumption, signed grid import/export, optional battery power/state of charge, production totals, Core telemetry, a manual refresh command, and two declarative dashboard widgets in one integration-owned experience package.
 
 > SolarEdge says Monitoring API V1 will be deprecated on November 1, 2026. This release remains draft/unverified until the SolarEdge ONE V2 OAuth contract is validated. See [the API/library research](docs/solaredge-library-research.md).
 
@@ -29,19 +29,18 @@ The minimum intervals deliberately preserve room under SolarEdge's documented 30
 pdm install -G dev
 pdm run pytest
 pdm run python scripts/validate.py
+pdm run python scripts/build_experience.py --check
 ```
 
-Widget projects live under `widgets/`. In either widget directory:
+The experience source lives under `experiences/solar-energy/`. It packages the
+Energy Flow and Production Summary widgets together, uses only Core-rendered
+declarative primitives, and declares package-owned themes, source-scoped binding
+slots, stale-data thresholds, history interactions, and Core card replacements.
 
-```bash
-npm install
-npm run build
-npm test
-npm run validate
-npm run conformance
-```
-
-The Python suite includes vendor-response normalization, quota-conscious service lifecycle, shared runtime conformance fixtures, and a direct PiPhi Core manifest normalization/validation test.
+The Python suite includes vendor-response normalization, quota-conscious service
+lifecycle and history behavior, a real Runtime SDK delivery through TestKit's
+mock Core, deterministic signed experience packaging, accessibility metadata,
+and direct PiPhi Core contract validation when Core is checked out alongside it.
 
 ## Run
 
@@ -54,6 +53,9 @@ The runtime exposes `/health`, `/diagnostics`, `/discover`, `/config`, `/config/
 ## Docker
 
 ```bash
-docker build -t piphinetwork/piphi-network-solaredge:0.1.0 .
-docker run --rm -p 8090:8090 piphinetwork/piphi-network-solaredge:0.1.0
+docker build -t piphinetwork/piphi-network-solar-edge:0.2.0 .
+docker run --rm -p 8090:8090 piphinetwork/piphi-network-solar-edge:0.2.0
 ```
+
+The container runs as a non-root user, persists the Runtime SDK automation
+ledger under `/var/lib/piphi`, and exposes an image health check.

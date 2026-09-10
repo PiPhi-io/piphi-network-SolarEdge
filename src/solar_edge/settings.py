@@ -4,7 +4,7 @@ import os
 
 INTEGRATION_ID = "piphi-network-solaredge"
 INTEGRATION_NAME = "SolarEdge"
-INTEGRATION_VERSION = "0.1.0"
+INTEGRATION_VERSION = "0.2.0"
 PROJECT_KIND = "integration"
 PROJECT_PRESET = "cloud-polling-api"
 PROJECT_DOMAIN = "cloud-api"
