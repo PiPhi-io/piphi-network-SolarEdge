@@ -2,6 +2,13 @@
   "schema_version": "1",
   "integration_id": "piphi-network-solaredge",
   "catalog_version": "0.2.1",
+  "completion": {
+    "status": "release_candidate",
+    "scope": "Read-only SolarEdge Monitoring API V1 aggregate-site telemetry",
+    "automated_validation": "passed",
+    "physical_site_validation": "pending",
+    "blocking_item": "oauth_v2"
+  },
   "capabilities": [
     {"id": "connected", "status": "implemented", "source": "runtime poll outcome", "history": "heartbeat on every poll"},
     {"id": "production_power_w", "status": "implemented", "source": "Monitoring API currentPowerFlow", "history": "sample on every successful poll"},

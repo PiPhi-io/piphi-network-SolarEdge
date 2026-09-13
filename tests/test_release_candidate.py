@@ -36,6 +36,20 @@ def test_capability_catalog_accounts_for_manifest_contract() -> None:
     assert set(manifest["capabilities"]) <= rows.keys()
     assert all(rows[capability]["status"] == "implemented" for capability in manifest["capabilities"])
     assert {row["status"] for row in rows.values()} == {"implemented", "planned", "excluded"}
+    assert catalog["completion"] == {
+        "status": "release_candidate",
+        "scope": "Read-only SolarEdge Monitoring API V1 aggregate-site telemetry",
+        "automated_validation": "passed",
+        "physical_site_validation": "pending",
+        "blocking_item": "oauth_v2",
+    }
+    assert rows[catalog["completion"]["blocking_item"]]["status"] == "planned"
+
+
+def test_solaredge_theme_does_not_restore_dashboard_shell_shadows() -> None:
+    theme = (ROOT / "experiences" / "solar-energy" / "themes" / "solaredge.css").read_text()
+    assert "--piphi-experience-shadow: none;" in theme
+    assert "--piphi-experience-tile-shadow: none;" in theme
 
 
 def test_release_workflows_publish_only_prepared_immutable_refs() -> None:

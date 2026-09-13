@@ -6,6 +6,11 @@ It provides live solar production, home consumption, signed grid import/export, 
 
 > SolarEdge says Monitoring API V1 will be deprecated on November 1, 2026. This release remains draft/unverified until the SolarEdge ONE V2 OAuth contract is validated. See [the API/library research](docs/solaredge-library-research.md).
 
+The current V1 implementation passes its automated runtime and experience
+qualification, but it is intentionally marked `release_candidate` rather than
+complete. OAuth v2 migration and validation against a physical SolarEdge site
+remain explicit release gates in `docs/capability-catalog.json`.
+
 ## Configure
 
 In SolarEdge Monitoring, enable API access and obtain the numeric Site ID and API key. PiPhi stores the API key as a secret.
