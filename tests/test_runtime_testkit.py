@@ -59,14 +59,24 @@ async def test_runtime_sdk_delivers_widget_metrics_to_testkit_core(mock_core) ->
         await asyncio.gather(*pending)
 
     assert len(mock_core.telemetry_requests) == 2
-    live = mock_core.telemetry_requests[0].json_body
-    summary = mock_core.telemetry_requests[1].json_body
+    live_request = next(
+        request
+        for request in mock_core.telemetry_requests
+        if "production_power_w" in request.json_body["metrics"]
+    )
+    summary_request = next(
+        request
+        for request in mock_core.telemetry_requests
+        if "today_energy_kwh" in request.json_body["metrics"]
+    )
+    live = live_request.json_body
+    summary = summary_request.json_body
     assert live["metrics"]["production_power_w"] == 4400.0
     assert live["metrics"]["connected"] is True
     assert "battery_power_w" not in live["metrics"]
     assert summary["metrics"]["today_energy_kwh"] == 19.2
     assert live["timestamp"] and summary["timestamp"]
-    headers = {key.lower(): value for key, value in mock_core.telemetry_requests[0].headers.items()}
+    headers = {key.lower(): value for key, value in live_request.headers.items()}
     assert headers["x-container-id"] == "runtime-test"
     assert headers["x-piphi-integration-token"] == "test-token"
     assert service.poll_status["site-one"]["last_core_heartbeat_at"]

@@ -3,7 +3,7 @@
   "identity": {
     "publisher_id": "io.piphi",
     "package_id": "solaredge-solar-energy",
-    "version": "0.1.0"
+    "version": "0.1.2"
   },
   "name": "SolarEdge Solar Energy",
   "description": "Live site power flow and production totals for SolarEdge Monitoring sites.",
@@ -22,7 +22,7 @@
     {
       "id": "energy-flow",
       "name": "SolarEdge Energy Flow",
-      "description": "Live production, household demand, grid flow, connectivity, and battery state.",
+      "description": "Live solar production, household demand, grid flow, and battery charge at a glance.",
       "runtime": "declarative",
       "themes": [
         {
@@ -61,7 +61,7 @@
         {
           "schema_version": "1",
           "id": "solaredge-energy-flow-v1",
-          "source_card_types": ["energy-flow", "sensor-card", "stat"],
+          "source_card_types": ["sensor-card", "stat"],
           "source_capability_ids": ["production_power_w", "consumption_power_w", "grid_power_w"],
           "strategy": "same-device"
         }
@@ -76,23 +76,17 @@
       ],
       "recipe": {
         "schema_version": "1",
-        "layout": "stack",
+        "layout": "grid",
         "columns": 2,
         "items": [
-          {"type": "status", "slot_id": "connectivity", "label": "SolarEdge connection", "true_label": "Connected", "false_label": "Unavailable", "domain": "connectivity", "show_freshness": true, "action": {"type": "details", "label": "View connection details"}},
-          {"type": "group", "id": "live-power", "label": "Live power", "description": "Current site power direction and demand.", "layout": "grid", "columns": 3, "items": [
-            {"type": "metric", "slot_id": "production", "label": "Producing", "format": "number", "domain": "power", "emphasis": "hero", "show_freshness": true, "action": {"type": "details", "label": "View solar production history"}},
-            {"type": "metric", "slot_id": "consumption", "label": "Using", "format": "number", "domain": "power", "show_freshness": true, "action": {"type": "details", "label": "View home consumption history"}},
-            {"type": "metric", "slot_id": "grid", "label": "Grid", "format": "number", "domain": "power", "show_freshness": true, "action": {"type": "details", "label": "View grid power history"}}
-          ]},
-          {"type": "group", "id": "storage", "label": "Battery", "layout": "grid", "columns": 2, "items": [
-            {"type": "metric", "slot_id": "battery-power", "label": "Battery power", "format": "number", "domain": "battery", "show_freshness": true, "action": {"type": "details", "label": "View battery power history"}},
-            {"type": "progress", "slot_id": "battery-level", "label": "Battery charge", "minimum": 0, "maximum": 100, "domain": "battery", "show_value": true, "action": {"type": "details", "label": "View battery charge history"}}
-          ]}
+          {"type": "metric", "slot_id": "production", "label": "Producing", "format": "number", "domain": "power", "emphasis": "hero", "show_freshness": true, "action": {"type": "details", "label": "View solar production history"}},
+          {"type": "metric", "slot_id": "consumption", "label": "Using", "format": "number", "domain": "power", "show_freshness": false, "action": {"type": "details", "label": "View home consumption history"}},
+          {"type": "metric", "slot_id": "grid", "label": "Grid", "format": "number", "domain": "power", "show_freshness": false, "action": {"type": "details", "label": "View grid power history"}},
+          {"type": "progress", "slot_id": "battery-level", "label": "Battery", "minimum": 0, "maximum": 100, "domain": "battery", "show_value": true, "action": {"type": "details", "label": "View battery charge history"}}
         ]
       },
       "default_column_span": 6,
-      "default_row_span": 4
+      "default_row_span": 3
     },
     {
       "id": "production-summary",
