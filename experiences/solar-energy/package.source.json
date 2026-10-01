@@ -3,13 +3,13 @@
   "identity": {
     "publisher_id": "io.piphi",
     "package_id": "solaredge-solar-energy",
-    "version": "0.1.2"
+    "version": "0.1.5"
   },
   "name": "SolarEdge Solar Energy",
   "description": "Live site power flow and production totals for SolarEdge Monitoring sites.",
   "origin": "integration",
   "owning_integration_id": "piphi-network-solaredge",
-  "sdk_version_range": ">=0.5.1,<0.6",
+  "sdk_version_range": ">=0.6.1,<0.7",
   "requires_integrations": [
     {
       "integration_id": "piphi-network-solaredge",
@@ -85,8 +85,23 @@
           {"type": "progress", "slot_id": "battery-level", "label": "Battery", "minimum": 0, "maximum": 100, "domain": "battery", "show_value": true, "action": {"type": "details", "label": "View battery charge history"}}
         ]
       },
+      "certification": {
+        "schema_version": "1",
+        "verified_gates": ["runtime", "persistence", "binding", "states", "responsive", "themes", "accessibility", "save-reload", "performance"],
+        "evidence": {
+          "runtime": ["core-profile:declarative-v2/runtime"],
+          "persistence": ["core-profile:declarative-v2/persistence"],
+          "binding": ["core-profile:declarative-v2/binding"],
+          "states": ["core-profile:declarative-v2/states"],
+          "responsive": ["core-profile:declarative-v2/responsive"],
+          "themes": ["core-profile:declarative-v2/themes"],
+          "accessibility": ["core-profile:declarative-v2/accessibility"],
+          "save-reload": ["core-profile:declarative-v2/save-reload"],
+          "performance": ["core-profile:declarative-v2/performance"]
+        }
+      },
       "default_column_span": 6,
-      "default_row_span": 3
+      "default_row_span": 2
     },
     {
       "id": "production-summary",
@@ -121,13 +136,28 @@
         "columns": 2,
         "items": [
           {"type": "metric", "slot_id": "today", "label": "Today", "format": "number", "domain": "energy", "emphasis": "hero", "show_freshness": true, "action": {"type": "details", "label": "View today's production history"}},
-          {"type": "metric", "slot_id": "month", "label": "This month", "format": "number", "domain": "energy", "show_freshness": true, "action": {"type": "details", "label": "View monthly production history"}},
-          {"type": "metric", "slot_id": "year", "label": "This year", "format": "number", "domain": "energy", "show_freshness": true, "action": {"type": "details", "label": "View yearly production history"}},
+          {"type": "metric", "slot_id": "month", "label": "Month", "format": "number", "domain": "energy", "show_freshness": true, "action": {"type": "details", "label": "View monthly production history"}},
+          {"type": "metric", "slot_id": "year", "label": "Year", "format": "number", "domain": "energy", "show_freshness": true, "action": {"type": "details", "label": "View yearly production history"}},
           {"type": "metric", "slot_id": "lifetime", "label": "Lifetime", "format": "number", "domain": "energy", "show_freshness": true, "action": {"type": "details", "label": "View lifetime production history"}}
         ]
       },
-      "default_column_span": 4,
-      "default_row_span": 3
+      "certification": {
+        "schema_version": "1",
+        "verified_gates": ["runtime", "persistence", "binding", "states", "responsive", "themes", "accessibility", "save-reload", "performance"],
+        "evidence": {
+          "runtime": ["core-profile:declarative-v2/runtime"],
+          "persistence": ["core-profile:declarative-v2/persistence"],
+          "binding": ["core-profile:declarative-v2/binding"],
+          "states": ["core-profile:declarative-v2/states"],
+          "responsive": ["core-profile:declarative-v2/responsive"],
+          "themes": ["core-profile:declarative-v2/themes"],
+          "accessibility": ["core-profile:declarative-v2/accessibility"],
+          "save-reload": ["core-profile:declarative-v2/save-reload"],
+          "performance": ["core-profile:declarative-v2/performance"]
+        }
+      },
+      "default_column_span": 6,
+      "default_row_span": 2
     }
   ]
 }
