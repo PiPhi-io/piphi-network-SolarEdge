@@ -41,6 +41,12 @@ def test_one_integration_owned_package_contains_both_widgets() -> None:
     assert all(widget["runtime"] == "declarative" for widget in source["widgets"])
     assert all(widget["presentation"]["shell"] == "core" for widget in source["widgets"])
     assert all(widget["permissions"] == [] if "permissions" in widget else True for widget in source["widgets"])
+    assert source["identity"]["version"] == "0.1.5"
+    assert all(widget["default_row_span"] == 2 for widget in source["widgets"])
+    assert source["widgets"][1]["default_column_span"] == 6
+    assert [item["label"] for item in source["widgets"][1]["recipe"]["items"]] == [
+        "Today", "Month", "Year", "Lifetime",
+    ]
 
 
 def test_bindings_are_source_scoped_fresh_and_history_capable() -> None:
@@ -84,6 +90,11 @@ def test_themes_use_only_core_allowlisted_tokens() -> None:
         assert "@import" not in css and "url(" not in css
         tokens = {line.split(":", 1)[0].strip() for line in css.splitlines() if line.strip().startswith("--")}
         assert tokens and tokens <= ALLOWED_THEME_TOKENS
+        assert "--piphi-experience-tile-border: transparent" in css
+        assert "--piphi-experience-gap: 8px" in css
+    assert "--piphi-experience-surface: transparent" in (
+        SOURCE.parent / "themes/solaredge.css"
+    ).read_text()
 
 
 def test_signed_build_is_deterministic_and_contains_shared_assets_once(tmp_path: Path) -> None:
