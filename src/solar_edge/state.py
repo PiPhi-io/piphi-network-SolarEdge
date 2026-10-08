@@ -208,3 +208,11 @@ async def refresh_automation(
 
 
 assert_behaviors_contract(BEHAVIORS, automations)
+
+
+async def _refresh_all_state() -> None:
+    if solaredge_service.active_config_id is not None:
+        await solaredge_service.refresh(force_summary=True)
+
+
+starter.state.provide(_refresh_all_state, source=INTEGRATION_ID)
