@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "integration_id": "piphi-network-solaredge",
-  "catalog_version": "0.2.1",
+  "catalog_version": "0.2.2",
   "completion": {
     "status": "release_candidate",
     "scope": "Read-only SolarEdge Monitoring API V1 aggregate-site telemetry",

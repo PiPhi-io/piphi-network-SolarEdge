@@ -50,11 +50,11 @@ def test_behaviors_parse_and_validate_in_piphi_core() -> None:
     try:
         contract = load_module("core_behavior_contract", "contract.py")
         schema = load_module("core_behavior_schema", "schema.py")
+        payload = json.loads((project_root / "src" / "behaviors.json").read_text())
+        parsed = schema.BehaviorSchemaDocument.model_validate(payload)
+        errors = contract.validate_behavior_contract(payload)
     finally:
         sys.path.remove(str(core_package_root))
-    payload = json.loads((project_root / "src" / "behaviors.json").read_text())
-    parsed = schema.BehaviorSchemaDocument.model_validate(payload)
-    errors = contract.validate_behavior_contract(payload)
 
     assert parsed.behavior_schema_version == "integration.behaviors.v2"
     assert errors == []

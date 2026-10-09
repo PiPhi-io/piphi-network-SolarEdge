@@ -58,8 +58,8 @@ The runtime exposes `/health`, `/diagnostics`, `/discover`, `/config`, `/config/
 ## Docker
 
 ```bash
-docker build -t piphinetwork/piphi-network-solaredge:0.2.1 .
-docker run --rm -p 8090:8090 piphinetwork/piphi-network-solaredge:0.2.1
+docker build -t piphinetwork/piphi-network-solaredge:0.2.2 .
+docker run --rm -p 8090:8090 piphinetwork/piphi-network-solaredge:0.2.2
 ```
 
 The container runs as a non-root user, persists the Runtime SDK automation
