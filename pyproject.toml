@@ -6,7 +6,7 @@ requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.115.0",
   "uvicorn[standard]>=0.30.0",
-  "piphi-runtime-kit-python>=0.8.0,<1.0.0",
+  "piphi-runtime-kit-python>=0.8.1,<1.0.0",
   "solaredge>=1.1.1,<2.0.0",
 ]
 
@@ -15,7 +15,7 @@ dev = [
   "pytest>=8.0.0",
   "httpx>=0.27.0",
   "cryptography>=43.0.0",
-  "piphi-runtime-testkit-python>=0.1.3,<0.2.0",
+  "piphi-runtime-testkit-python>=0.1.4,<0.2.0",
 ]
 
 
