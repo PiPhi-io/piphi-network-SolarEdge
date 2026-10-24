@@ -315,5 +315,8 @@
         "auto_install": true
       }
     ]
+  },
+  "onboarding": {
+    "mode": "account"
   }
 }
